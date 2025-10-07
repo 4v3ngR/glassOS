@@ -1,0 +1,123 @@
+
+/*************************************************************************************************************************************************************************************************************************************************************
+
+"userChrome.css" is a custom CSS file that can be used to specify CSS style rules for Floorp's interface (NOT internal site) using "chrome" privileges.
+For instance, if you want to hide the tab bar, you can use the following CSS rule:
+
+**************************************
+#TabsToolbar {                       *
+    display: none !important;        *
+}                                    *
+**************************************
+
+NOTE: You can use the userChrome.css file without change preferences (about:config)
+
+Quote: https://userChrome.org | https://github.com/topics/userchrome 
+
+************************************************************************************************************************************************************************************************************************************************************/
+
+@charset "UTF-8";
+@-moz-document url(chrome://browser/content/browser.xhtml) {
+/* Please write your custom CSS under this line*/
+
+	#main-window {
+		padding: 0px;
+	}
+
+	html {
+		border-radius: 8px;
+	}
+
+	#nav-bar {
+		background: transparent !important;
+	}
+
+	.urlbar-input-container,
+	#urlbar-container {
+		border-radius: 16px !important;
+	}
+
+	.urlbar-background,
+	#urlbar-background {
+		opacity: 0.5;
+		border-radius: 16px !important;
+	}
+
+	.urlbarView {
+		border-bottom: 8px solid transparent !important;
+	}
+
+	.urlbarView-body-outer {
+		background: light-dark(#ffffff, #202020);
+		border-radius: 16px;
+	}
+
+	browser,
+	#browser {
+		background: transparent !important;
+		border-radius: 8px !important;
+	}
+
+	#statusBar,
+	#navigator-toolbox {
+		background: transparent !important;
+	}
+
+	#TabsToolbar {
+		background: transparent !important;
+
+		toolbarbutton {
+			visibility: hidden !important;
+			display: none !important;
+		}
+	}
+
+	#tabbrowser-tabs {
+		border: 0px !important;
+	}
+
+	.tab-background {
+		&::before, &::after {
+			content: none;
+			border: 0px !important;
+			border-radius: 0px !important;
+		}
+
+		border-radius: 16px 8px 8px 16px !important;
+		margin: 0px -8px 0px 6px !important;
+		opacity: 0.5 !important;
+	}
+
+	#tabbrowser-tabbox {
+		box-shadow: none !important;
+		border-radius: 8px !important;
+		background: light-dark(rgba(255,255,255,0.5), rgba(20,20,20,0.5)) !important;
+	}
+
+	#tabbrowser-tabpanels {
+		background: transparent !important;
+		hbox {
+			border-radius: 8px
+		}
+	}
+
+	#tabs-newtab-button,
+	#sidebar-tools-and-extensions-splitter,
+	button-group.overflow-button {
+		visibility: hidden;
+		display: none;
+	}
+
+	#unified-extensions-button {
+		opacity: 0.0;
+	}
+
+	#unified-extensions-button:hover {
+		opacity: inherit;
+	}
+
+	#verticaltab-splitter {
+		border: 0px !important;
+		background: transparent !important;
+	}
+}
