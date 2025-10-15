@@ -31,6 +31,7 @@ html {
 	background: transparent !important;
 }
 
+notification-message[value="remoteContent"],
 .sidebar-panel-scroll::before,
 .sidebar-panel-scroll::after,
 #toolbar-menubar {
