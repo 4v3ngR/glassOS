@@ -27,6 +27,7 @@ html {
 	background: transparent !important;
 }
 
+button[class="spaces-toolbar-button current"],
 #navigation-toolbox {
 	background: transparent !important;
 }
