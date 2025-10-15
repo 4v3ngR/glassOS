@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+unified-toolbar,
+#spacesToolbar,
+#messengerWindow,
+#messengerBody,
+#tabmail-container,
+tabmail,
+tabbox,
+tabpanels,
+#mail3PaneTab1,
+stack,
+browser,
+#threadPaneHeaderBar,
+#threadTree,
+#folderPaneHeaderBar,
+.card-container,
+.card-layout,
+.tree-table,
+#paneLayout {
+	background: transparent !important;
+	border: 0px !important;
+}
+
+html {
+	border-radius: 8px;
+	background: transparent !important;
+}
+
+#navigation-toolbox {
+	background: transparent !important;
+}
+
+.sidebar-panel-scroll::before,
+.sidebar-panel-scroll::after,
+#toolbar-menubar {
+	height: 0px !important;
+	display: none !important;
+	visibility: hidden !important;
+}
+
+hr[is="pane-splitter"] {
+	width: 8px !important;
+	background: transparent !important;
+	border: 0px !important;
+}
+
+#messagePane,
+#threadPane,
+#folderPane {
+	border-radius: 8px !important;
+	background: light-dark(rgba(255,255,255,0.5), rgba(20,20,20,0.5)) !important;
+}
+
+input[type="search"] {
+	border-radius: 32px !important;
+	background: light-dark(rgba(255,255,255,0.5), rgba(20,20,20,0.5)) !important;
+}
