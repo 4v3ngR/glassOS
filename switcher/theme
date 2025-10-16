@@ -1,0 +1,62 @@
+#!/bin/sh
+
+# some env vars that are needed to get theme switching working
+export XDG_SESSION_TYPE=wayland
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+export XDG_CONFIG_DIRS=/home/$(id -un)/.config/kdedefaults:/etc/xdg
+export LIBGL_ALWAYS_REDIRECT=
+export QT_WAYLAND_RECONNECT=1
+
+CURRENT=""
+MODE="auto"
+THEME="$1"
+
+LIGHT_HOUR=5
+DARK_HOUR=19
+
+# set your dark and light theme IDs here
+DARK_THEME="org.mapple.theme.dark"
+LIGHT_THEME="org.mapple.theme.light"
+
+[ -f "$HOME/.theme" ] && . "$HOME/.theme"
+
+[ -z "$1" ] && {
+	echo "current theme $CURRENT"
+	exit 0
+}
+
+if [ "$1" = "auto" ]; then
+	THEME="dark"
+	h=$(date +%H)
+	if [ $h -gt $LIGHT_HOUR ] && [ $h -lt $DARK_HOUR ]; then
+		THEME="light"
+	fi
+fi
+
+if [ "$CURRENT" != "$THEME" ]; then
+	if [ ! -z "$2" ] || [ "$MODE" = "auto" ]; then
+		dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$THEME'"
+
+		if [ "$THEME" = "dark" ]; then
+			lookandfeeltool -a $DARK_THEME
+			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Brightness 1.0
+			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Contrast 1.0
+			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Saturation 1.0
+		else
+			lookandfeeltool -a $LIGHT_THEME
+			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Brightness 1.3
+			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Contrast 1.0
+			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Saturation 0.5
+		fi
+		qdbus6 org.kde.KWin /Effects reconfigureEffect forceblur
+
+		echo "CURRENT=$THEME" > "$HOME/.theme"
+		echo "MODE=$MODE" >> "$HOME/.theme"
+	fi
+fi
+
+[ -z "$2" ] || {
+	MODE="$2"
+	echo "CURRENT=$THEME" > "$HOME/.theme"
+	echo "MODE=$MODE" >> "$HOME/.theme"
+}
