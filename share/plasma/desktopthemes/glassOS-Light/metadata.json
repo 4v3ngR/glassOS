@@ -1,0 +1,19 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "avenger@rescueteam.com",
+                "Name": "4v3ngR"
+            }
+        ],
+        "Category": "Plasma 6.0 theme",
+        "Description": "MacOS glass theme for plasma original theme by vinceliuice@hotmail.com",
+        "EnabledByDefault": true,
+        "Id": "glassOS-Light",
+        "License": "GPL-3.0",
+        "Name": "glassOS-Light",
+        "Version": "6.2.0",
+        "Website": "https://github.com/4v3ngR/glassOS"
+    },
+    "X-Plasma-API": "5.0"
+}

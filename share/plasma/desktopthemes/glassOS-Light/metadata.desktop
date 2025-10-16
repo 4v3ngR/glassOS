@@ -1,0 +1,28 @@
+[Desktop Entry]
+Name=glassOS-Light
+Comment=MacOS glass theme for plasma original theme by vinceliuice@hotmail.com
+
+X-KDE-PluginInfo-Author=4v3ngR
+X-KDE-PluginInfo-Email=avenger@rescueteam.com
+X-KDE-PluginInfo-Name=glassOS-Light
+X-KDE-PluginInfo-Version=5.84.0
+X-KDE-PluginInfo-Website=https://github.com/4v3ngR/glassOS
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-License=GPL-3.0
+X-KDE-PluginInfo-EnabledByDefault=true
+X-Plasma-API=5.0
+
+[Wallpaper]
+defaultWallpaperTheme=Panther
+defaultFileSuffix=.jpg
+defaultWidth=3840
+defaultHeight=2160
+
+[ContrastEffect]
+enabled=false
+contrast=0.2
+intensity=1.4
+saturation=10
+
+[AdaptiveTransparency]
+enabled=true
