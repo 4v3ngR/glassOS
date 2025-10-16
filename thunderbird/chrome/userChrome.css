@@ -59,6 +59,10 @@ hr[is="pane-splitter"] {
 	margin-right: 8px !important;
 }
 
+#folderPane {
+	margin-left: 8px !important;
+}
+
 input[type="search"] {
 	border-radius: 32px !important;
 	background: light-dark(rgba(255,255,255,0.5), rgba(20,20,20,0.5)) !important;
