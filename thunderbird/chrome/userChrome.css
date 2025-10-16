@@ -50,8 +50,13 @@ hr[is="pane-splitter"] {
 #messagePane,
 #threadPane,
 #folderPane {
+	margin-bottom: 8px !important;
 	border-radius: 8px !important;
 	background: light-dark(rgba(255,255,255,0.5), rgba(20,20,20,0.5)) !important;
+}
+
+#messagePane {
+	margin-right: 8px !important;
 }
 
 input[type="search"] {
