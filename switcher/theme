@@ -50,6 +50,16 @@ if [ "$CURRENT" != "$THEME" ]; then
 		fi
 		qdbus6 org.kde.KWin /Effects reconfigureEffect forceblur
 
+		# This will update konsole to use the appropriate theme (and set it to default)
+		kwriteconfig6 --file konsolerc --group "Desktop Entry" --key DefaultProfile $THEME.profile
+		for instance in `qdbus6 | grep konsole`; do
+			for session in `qdbus6 $instance | grep '/Sessions/'`; do
+				qdbus6 $instance $session org.kde.konsole.Session.setProfile $THEME
+			done
+		done
+		#
+
+		# save current theme
 		echo "CURRENT=$THEME" > "$HOME/.theme"
 		echo "MODE=$MODE" >> "$HOME/.theme"
 	fi
