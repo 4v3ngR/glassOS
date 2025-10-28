@@ -7,9 +7,48 @@ export XDG_CONFIG_DIRS=/home/$(id -un)/.config/kdedefaults:/etc/xdg
 export LIBGL_ALWAYS_REDIRECT=
 export QT_WAYLAND_RECONNECT=1
 
-CURRENT=""
+_THEME=""
+_GLASS="false"
 MODE="auto"
 THEME="$1"
+
+BRIGHTNESS=1.0
+CONTRAST=1.0
+SATURATION=1.0
+BLURSTRENGTH=8
+GLASS="false"
+
+# set up better-blur values for the different theme styles
+case "$THEME" in
+	"dark-glass")
+		GLASS="true"
+		THEME="dark"
+		BRIGHTNESS=0.9
+		CONTRAST=1.1
+		SATURATION=1.0
+		BLURSTRENGTH=4
+		;;
+	"light-glass")
+		GLASS="true"
+		THEME="light"
+		BRIGHTNESS=1.1
+		CONTRAST=0.9
+		SATURATION=1.0
+		BLURSTRENGTH=4
+		;;
+	"dark")
+		BRIGHTNESS=0.3
+		CONTRAST=1.1
+		SATURATION=1.7
+		BLURSTRENGTH=14
+		;;
+	"light")
+		BRIGHTNESS=1.1
+		CONTRAST=0.9
+		SATURATION=1.0
+		BLURSTRENGTH=14
+		;;
+esac
 
 LIGHT_HOUR=5
 DARK_HOUR=19
@@ -21,7 +60,7 @@ LIGHT_THEME="org.mapple.theme.light"
 [ -f "$HOME/.theme" ] && . "$HOME/.theme"
 
 [ -z "$1" ] && {
-	echo "current theme $CURRENT"
+	echo "current theme $_THEME"
 	exit 0
 }
 
@@ -33,40 +72,43 @@ if [ "$1" = "auto" ]; then
 	fi
 fi
 
-if [ "$CURRENT" != "$THEME" ]; then
+if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 	if [ ! -z "$2" ] || [ "$MODE" = "auto" ]; then
+		# update gtk theme
 		dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$THEME'"
 
+		# update plasma look and feel
 		if [ "$THEME" = "dark" ]; then
 			lookandfeeltool -a $DARK_THEME
-			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Brightness 0.5
-			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Contrast 1.5
-			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Saturation 1.0
 		else
 			lookandfeeltool -a $LIGHT_THEME
-			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Brightness 1.5
-			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Contrast 0.5
-			kwriteconfig6 --file kwinrc --group Effect-blurplus --key Saturation 1.0
 		fi
+
+		# update better blur config
+		kwriteconfig6 --file kwinrc --group Effect-blurplus --key Brightness $BRIGHTNESS
+		kwriteconfig6 --file kwinrc --group Effect-blurplus --key Contrast $CONTRAST
+		kwriteconfig6 --file kwinrc --group Effect-blurplus --key Saturation $SATURATION
+		kwriteconfig6 --file kwinrc --group Effect-blurplus --key BlurStrength $BLURSTRENGTH
 		qdbus6 org.kde.KWin /Effects reconfigureEffect forceblur
 
-		# This will update konsole to use the appropriate theme (and set it to default)
+		# update konsole to use the appropriate theme (and set it to default)
 		kwriteconfig6 --file konsolerc --group "Desktop Entry" --key DefaultProfile $THEME.profile
 		for instance in `qdbus6 | grep konsole`; do
 			for session in `qdbus6 $instance | grep '/Sessions/'`; do
 				qdbus6 $instance $session org.kde.konsole.Session.setProfile $THEME
 			done
 		done
-		#
 
 		# save current theme
-		echo "CURRENT=$THEME" > "$HOME/.theme"
+		echo "_THEME=$THEME" > "$HOME/.theme"
+		echo "_GLASS=$GLASS" >> "$HOME/.theme"
 		echo "MODE=$MODE" >> "$HOME/.theme"
 	fi
 fi
 
 [ -z "$2" ] || {
 	MODE="$2"
-	echo "CURRENT=$THEME" > "$HOME/.theme"
+	echo "_THEME=$THEME" > "$HOME/.theme"
+	echo "_GLASS=$GLASS" >> "$HOME/.theme"
 	echo "MODE=$MODE" >> "$HOME/.theme"
 }
