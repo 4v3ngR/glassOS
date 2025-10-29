@@ -120,4 +120,11 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 		border: 0px !important;
 		background: transparent !important;
 	}
+
+	#statuspanel-label {
+		margin: 8px !important;
+		padding: 4px !important;
+		border-radius: 16px !important;
+		opacity: 0.8;
+	}
 }
