@@ -64,6 +64,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 
 	#tabbrowser-tabs {
 		border: 0px !important;
+		container-type: inline-size;
 	}
 
 	.tab-background {
@@ -74,8 +75,15 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 		}
 
 		border-radius: 16px 8px 8px 16px !important;
-		margin: 0px -8px 0px 6px !important;
+		margin: 0px 0px 0px 6px !important;
 		opacity: 0.5 !important;
+	}
+
+	@container(max-width: 100px) {
+		.tab-background {
+			border-radius: 16px !important;
+			margin: 0px 0px 0px 11px !important;
+		}
 	}
 
 	#tabbrowser-tabbox {
