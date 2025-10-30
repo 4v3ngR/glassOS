@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# some env vars that are needed to get theme switching working
+# some env vars that are needed to get theme switching working when run as a cron job
 export XDG_SESSION_TYPE=wayland
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export XDG_CONFIG_DIRS=/home/$(id -un)/.config/kdedefaults:/etc/xdg
