@@ -1,16 +1,48 @@
 #!/bin/sh
 
-# some env vars that are needed to get theme switching working when run as a cron job
+# some env vars that are needed to get theme switching working
 export XDG_SESSION_TYPE=wayland
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export XDG_CONFIG_DIRS=/home/$(id -un)/.config/kdedefaults:/etc/xdg
 export LIBGL_ALWAYS_REDIRECT=
 export QT_WAYLAND_RECONNECT=1
 
+# set the hours for auto theme selection
+LIGHT_HOUR=5
+DARK_HOUR=19
+
+# set your dark and light theme IDs here
+DARK_THEME="org.mapple.theme.dark"
+LIGHT_THEME="org.mapple.theme.light"
+
 _THEME=""
 _GLASS="false"
+
 MODE="auto"
 THEME="$1"
+
+[ -f "$HOME/.theme" ] && . "$HOME/.theme"
+
+[ -z "$1" ] && {
+	if [ "$_GLASS" = "true" ]; then
+		echo "current theme ${_THEME}-glass"
+	else
+		echo "current theme $_THEME"
+	fi
+	exit 0
+}
+
+if [ "$1" = "auto" ]; then
+	THEME="dark"
+	h=$(date +%H)
+	if [ $h -gt $LIGHT_HOUR ] && [ $h -lt $DARK_HOUR ]; then
+		THEME="light"
+	fi
+
+	if [ "$_GLASS" = "true" ]; then
+		THEME="${THEME}-glass"
+	fi
+fi
 
 BRIGHTNESS=1.0
 CONTRAST=1.0
@@ -50,30 +82,9 @@ case "$THEME" in
 		;;
 esac
 
-LIGHT_HOUR=5
-DARK_HOUR=19
-
-# set your dark and light theme IDs here
-DARK_THEME="org.mapple.theme.dark"
-LIGHT_THEME="org.mapple.theme.light"
-
-[ -f "$HOME/.theme" ] && . "$HOME/.theme"
-
-[ -z "$1" ] && {
-	echo "current theme $_THEME"
-	exit 0
-}
-
-if [ "$1" = "auto" ]; then
-	THEME="dark"
-	h=$(date +%H)
-	if [ $h -gt $LIGHT_HOUR ] && [ $h -lt $DARK_HOUR ]; then
-		THEME="light"
-	fi
-fi
-
 if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 	if [ ! -z "$2" ] || [ "$MODE" = "auto" ]; then
+
 		# update gtk theme
 		dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$THEME'"
 
@@ -103,9 +114,11 @@ if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 		echo "_THEME=$THEME" > "$HOME/.theme"
 		echo "_GLASS=$GLASS" >> "$HOME/.theme"
 		echo "MODE=$MODE" >> "$HOME/.theme"
+		exit
 	fi
 fi
 
+# if we got here, we're just changing the mode
 [ -z "$2" ] || {
 	MODE="$2"
 	echo "_THEME=$THEME" > "$HOME/.theme"
