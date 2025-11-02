@@ -20,6 +20,19 @@ The script updates:
 - better blur settings (brightness, contrast, saturation, blur level)
 - default konsole profile (dark or light)
 
+### The switch script auto mode
+Not only does the switch script allow for changing of themes, blur settings, and konsole profiles, it can do it automatically based on time.
+
+```sh
+theme auto
+```
+
+This can be run as a cron job to fully automate the change
+
+```
+* * * * * /usr/local/bin/theme auto
+```
+
 ![Dark Glass](/images/dark.png)
 ![Light Glass](/images/light.png)
 ![Dark](/images/dark-opaque.png)
