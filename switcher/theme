@@ -9,7 +9,7 @@ export QT_WAYLAND_RECONNECT=1
 
 # set the hours for auto theme selection
 LIGHT_HOUR=5
-DARK_HOUR=19
+DARK_HOUR=18
 
 # set your dark and light theme IDs here
 DARK_THEME="org.mapple.theme.dark"
@@ -23,14 +23,16 @@ THEME="$1"
 
 [ -f "$HOME/.theme" ] && . "$HOME/.theme"
 
-[ -z "$1" ] && {
+if [ -z "$1" ]; then
 	if [ "$_GLASS" = "true" ]; then
 		echo "current theme ${_THEME}-glass"
 	else
 		echo "current theme $_THEME"
 	fi
 	exit 0
-}
+fi
+
+[ -z "$2" ] || MODE="$2"
 
 if [ "$1" = "auto" ]; then
 	THEME="dark"
