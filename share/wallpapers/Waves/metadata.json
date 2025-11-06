@@ -1,0 +1,14 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "avenger@rescueteam.com",
+                "Name": "4v3ngR"
+            }
+        ],
+        "Id": "Waves",
+        "License": "CC-BY-SA-4.0",
+        "Name": "Waves",
+        "Description": "CachyOS dark and light 'Wave' wallpapers packaged as a dynamic wallpaper"
+    }
+}
