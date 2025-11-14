@@ -1,12 +1,3 @@
-# SPDX-FileCopyrightText: Andrew Lake <jamboarder@gmail.com>
-# SPDX-FileCopyrightText: Marco Martin <notmart@gmail.com>
-# SPDX-FileCopyrightText: Nate Graham <nate@kde.org>
-# SPDX-FileCopyrightText: Noah Davis <noahadvs@gmail.com>
-# SPDX-FileCopyrightText: Neal Gompa <ngompa@kde.org>
-# SPDX-FileCopyrightText: David Redondo <kde@david-redondo.de>
-# SPDX-FileCopyrightText: Thomas Duckworth <tduck973564@gmail.com>
-# SPDX-License-Identifier: LGPL-2.0-or-later
-
 [ColorEffects:Disabled]
 Color=56,56,56
 ColorAmount=0
@@ -56,8 +47,8 @@ ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
 [Colors:Header]
-BackgroundAlternate=32,35,38
-BackgroundNormal=41,44,48
+BackgroundAlternate=32,35,38,0
+BackgroundNormal=41,44,48,0
 DecorationFocus=61,174,233
 DecorationHover=61,174,233
 ForegroundActive=61,174,233
