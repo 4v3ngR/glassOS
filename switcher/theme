@@ -1,11 +1,14 @@
 #!/bin/sh
 
+echo "`date` $*" >> /tmp/blah
 # some env vars that are needed to get theme switching working
 export XDG_SESSION_TYPE=wayland
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export XDG_CONFIG_DIRS=/home/$(id -un)/.config/kdedefaults:/etc/xdg
 export LIBGL_ALWAYS_REDIRECT=
 export QT_WAYLAND_RECONNECT=1
+
+[ -z "$HOME" ] && HOME=/tmp/
 
 # set the hours for auto theme selection
 LIGHT_HOUR=5
@@ -65,8 +68,8 @@ case "$THEME" in
 	"light-glass")
 		GLASS="true"
 		THEME="light"
-		BRIGHTNESS=1.2
-		CONTRAST=0.8
+		BRIGHTNESS=1.3
+		CONTRAST=0.5
 		SATURATION=1.0
 		BLURSTRENGTH=4
 		;;
@@ -102,7 +105,7 @@ if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key Contrast $CONTRAST
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key Saturation $SATURATION
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key BlurStrength $BLURSTRENGTH
-		qdbus6 org.kde.KWin /Effects reconfigureEffect forceblur
+		qdbus6 org.kde.KWin /Effects reconfigureEffect glass
 
 		# update konsole to use the appropriate theme (and set it to default)
 		kwriteconfig6 --file konsolerc --group "Desktop Entry" --key DefaultProfile $THEME.profile
