@@ -63,7 +63,7 @@ case "$THEME" in
 		BRIGHTNESS=0.9
 		CONTRAST=1.1
 		SATURATION=1.0
-		BLURSTRENGTH=4
+		BLURSTRENGTH=3
 		;;
 	"light-glass")
 		GLASS="true"
