@@ -19,7 +19,6 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	}
 
 	:root[inFullscreen="true"] html {
-		padding: 0px;
 		border-radius: 0px;
 	}
 
@@ -47,7 +46,10 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 		border-radius: 16px;
 	}
 
-	browser,
+	browser {
+		border-radius: 8px !important;
+	}
+
 	#browser {
 		background: transparent !important;
 		border-radius: 8px !important;
@@ -57,6 +59,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	:root[inFullscreen="true"] browser,
 	:root[inFullscreen="true"] #browser {
 		padding: 0px;
+		border-radius: 0px;
 	}
 
 	#statusBar,
