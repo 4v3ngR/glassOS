@@ -11,11 +11,16 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 /* Please write your custom CSS under this line*/
 
 	#main-window {
-		padding: 0px;
+		margin: 0px;
 	}
 
 	html {
 		border-radius: 8px;
+	}
+
+	:root[inFullscreen="true"] html {
+		padding: 0px;
+		border-radius: 0px;
 	}
 
 	#nav-bar {
@@ -46,6 +51,12 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	#browser {
 		background: transparent !important;
 		border-radius: 8px !important;
+		padding: 8px;
+	}
+
+	:root[inFullscreen="true"] browser,
+	:root[inFullscreen="true"] #browser {
+		padding: 0px;
 	}
 
 	#statusBar,
@@ -74,7 +85,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 			border-radius: 0px !important;
 		}
 
-		border-radius: 16px 8px 8px 16px !important;
+		border-radius: 16px 0px 0px 16px !important;
 		margin: 0px 0px 0px 6px !important;
 		opacity: 0.5 !important;
 	}
