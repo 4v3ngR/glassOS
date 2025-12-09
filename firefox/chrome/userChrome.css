@@ -53,7 +53,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	#browser {
 		background: transparent !important;
 		border-radius: 8px !important;
-		padding: 8px;
+		padding: 0px 8px 8px 8px;
 	}
 
 	:root[inFullscreen="true"] browser,
