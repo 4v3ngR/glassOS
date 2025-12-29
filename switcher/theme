@@ -62,7 +62,7 @@ if [ "$MODE" = "smart" ]; then
 
 	# this will force cron to honour existing _MODE
 	if [ "$THEME" = "auto" ]; then
-		if [ "$_THEME" = "$a" ]; then
+		if [ "$_THEME" = "$a" ] || [ "$_MODE" = "auto" ]; then
 			THEME="$a"
 			MODE="auto"
 		else
