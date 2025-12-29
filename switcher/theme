@@ -157,7 +157,7 @@ if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 fi
 
 # if we have the mode provided, we save the updated config
-if [ ! -z "$2" ]; then
+if [ "$MODE" != "$_MODE" ]; then
 	echo "_THEME=$THEME" > "$HOME/.theme"
 	echo "_GLASS=$GLASS" >> "$HOME/.theme"
 	echo "_MODE=$MODE" >> "$HOME/.theme"
