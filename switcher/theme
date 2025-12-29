@@ -1,6 +1,5 @@
 #!/bin/sh
 
-echo "`date` $*" >> /tmp/blah
 # some env vars that are needed to get theme switching working
 export XDG_SESSION_TYPE=wayland
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
@@ -18,13 +17,17 @@ DARK_HOUR=18
 DARK_THEME="org.mapple.theme.dark"
 LIGHT_THEME="org.mapple.theme.light"
 
+# previous values
 _THEME=""
 _GLASS="false"
-
-MODE="auto"
-THEME="$1"
+_MODE="auto"
 
 [ -f "$HOME/.theme" ] && . "$HOME/.theme"
+
+# new values
+THEME="$_THEME"
+GLASS="$_GLASS"
+MODE="$_MODE"
 
 if [ -z "$1" ]; then
 	if [ "$_GLASS" = "true" ]; then
@@ -35,27 +38,57 @@ if [ -z "$1" ]; then
 	exit 0
 fi
 
-[ -z "$2" ] || MODE="$2"
-
-if [ "$1" = "auto" ]; then
-	THEME="dark"
-	h=$(date +%H)
-	if [ $h -gt $LIGHT_HOUR ] && [ $h -lt $DARK_HOUR ]; then
-		THEME="light"
-	fi
-
-	if [ "$_GLASS" = "true" ]; then
-		THEME="${THEME}-glass"
+# get requested values
+if [ ! -z "$1" ]; then
+	THEME="$1"
+	if [ ! -z "$2" ]; then
+		MODE="$2"
 	fi
 fi
 
+# always use smart mode for cron
+if [ "$THEME" = "auto" ]; then
+	MODE="smart"
+fi
+
+if [ "$MODE" = "smart" ]; then
+	h=$(date +%H)
+
+	# which theme would be autoselected
+	a="dark"
+	if [ $h -gt $LIGHT_HOUR ] && [ $h -lt $DARK_HOUR ]; then
+		a="light"
+	fi
+
+	# this will force cron to honour existing _MODE
+	if [ "$THEME" = "auto" ]; then
+		if [ "$_THEME" = "$a" ]; then
+			THEME="$a"
+			MODE="auto"
+		else
+			THEME="$_THEME"
+			MODE="$_MODE"
+		fi
+
+		if [ "$_GLASS" = "true" ]; then
+			THEME="${THEME}-glass"
+		fi
+
+	# determine if mode should be auto or force
+	elif [ "$a" = "$THEME" ] || [ "${a}-glass" = "$THEME" ]; then
+		MODE="auto"
+	else
+		MODE="force"
+	fi
+fi
+
+# better blur values
 BRIGHTNESS=1.0
 CONTRAST=1.0
 SATURATION=1.0
 BLURSTRENGTH=8
 GLASS="false"
 
-# set up better-blur values for the different theme styles
 case "$THEME" in
 	"dark-glass")
 		GLASS="true"
@@ -71,7 +104,7 @@ case "$THEME" in
 		BRIGHTNESS=1.3
 		CONTRAST=0.5
 		SATURATION=1.0
-		BLURSTRENGTH=4
+		BLURSTRENGTH=3
 		;;
 	"dark")
 		BRIGHTNESS=0.5
@@ -87,6 +120,7 @@ case "$THEME" in
 		;;
 esac
 
+# update if needed
 if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 	if [ ! -z "$2" ] || [ "$MODE" = "auto" ]; then
 
@@ -114,19 +148,17 @@ if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 				qdbus6 $instance $session org.kde.konsole.Session.setProfile $THEME
 			done
 		done
-
 		# save current theme
 		echo "_THEME=$THEME" > "$HOME/.theme"
 		echo "_GLASS=$GLASS" >> "$HOME/.theme"
-		echo "MODE=$MODE" >> "$HOME/.theme"
+		echo "_MODE=$MODE" >> "$HOME/.theme"
 		exit
 	fi
 fi
 
-# if we got here, we're just changing the mode
-[ -z "$2" ] || {
-	MODE="$2"
+# if we have the mode provided, we save the updated config
+if [ ! -z "$2" ]; then
 	echo "_THEME=$THEME" > "$HOME/.theme"
 	echo "_GLASS=$GLASS" >> "$HOME/.theme"
-	echo "MODE=$MODE" >> "$HOME/.theme"
-}
+	echo "_MODE=$MODE" >> "$HOME/.theme"
+fi
