@@ -87,6 +87,7 @@ BRIGHTNESS=1.0
 CONTRAST=1.0
 SATURATION=1.0
 BLURSTRENGTH=8
+TINT="#00000000"
 GLASS="false"
 
 case "$THEME" in
@@ -97,6 +98,7 @@ case "$THEME" in
 		CONTRAST=1.1
 		SATURATION=1.0
 		BLURSTRENGTH=3
+		TINT="#10007fff"
 		;;
 	"light-glass")
 		GLASS="true"
@@ -105,18 +107,21 @@ case "$THEME" in
 		CONTRAST=0.5
 		SATURATION=1.0
 		BLURSTRENGTH=3
+		TINT="#2080e0f0"
 		;;
 	"dark")
 		BRIGHTNESS=0.5
 		CONTRAST=1.0
 		SATURATION=0.5
 		BLURSTRENGTH=14
+		TINT="#10007fff"
 		;;
 	"light")
 		BRIGHTNESS=1.8
 		CONTRAST=0.6
 		SATURATION=0.5
 		BLURSTRENGTH=14
+		TINT="#2080e0f0"
 		;;
 esac
 
@@ -139,6 +144,7 @@ if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key Contrast $CONTRAST
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key Saturation $SATURATION
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key BlurStrength $BLURSTRENGTH
+		kwriteconfig6 --file kwinrc --group Effect-blurplus --key TintColor $TINT
 		qdbus6 org.kde.KWin /Effects reconfigureEffect glass
 
 		# update konsole to use the appropriate theme (and set it to default)
