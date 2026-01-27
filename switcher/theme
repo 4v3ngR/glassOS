@@ -90,6 +90,7 @@ BLURSTRENGTH=8
 TINT="#00000000"
 GLOW="#00000000"
 GLASS="false"
+EDGE="false"
 
 case "$THEME" in
 	"dark-glass")
@@ -98,32 +99,33 @@ case "$THEME" in
 		BRIGHTNESS=0.9
 		CONTRAST=1.1
 		SATURATION=1.0
-		BLURSTRENGTH=3
-		GLOW="#80808080"
+		BLURSTRENGTH=2
+		GLOW="#0080D0FF"
+		EDGE="true"
 		;;
 	"light-glass")
 		GLASS="true"
 		THEME="light"
-		BRIGHTNESS=1.3
-		CONTRAST=0.9
-		SATURATION=0.5
-		BLURSTRENGTH=5
-		GLOW="#80F0F0F0"
-		TINT="#20d0d0d0"
+		BRIGHTNESS=1.1
+		CONTRAST=1.0
+		SATURATION=0.9
+		BLURSTRENGTH=3
+		GLOW="#00f0f0f0"
+		TINT="#07e0e0e0"
 		;;
 	"dark")
 		BRIGHTNESS=0.5
 		CONTRAST=1.0
 		SATURATION=0.5
 		BLURSTRENGTH=14
-		GLOW="#80808080"
+		GLOW="#0080D0FF"
 		;;
 	"light")
 		BRIGHTNESS=1.8
 		CONTRAST=0.6
 		SATURATION=0.3
 		BLURSTRENGTH=14
-		GLOW="#80F0F0F0"
+		GLOW="#80f0f0f0"
 		;;
 esac
 
@@ -148,6 +150,7 @@ if [ "$_THEME" != "$THEME" ] || [ "$_GLASS" != "$GLASS" ]; then
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key BlurStrength $BLURSTRENGTH
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key TintColor $TINT
 		kwriteconfig6 --file kwinrc --group Effect-blurplus --key GlowColor $GLOW
+		kwriteconfig6 --file kwinrc --group Effect-blurplus --key EdgeLighting $EDGE
 		qdbus6 org.kde.KWin /Effects reconfigureEffect glass
 
 		# update konsole to use the appropriate theme (and set it to default)
