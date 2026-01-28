@@ -100,10 +100,16 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 		}
 	}
 
+	#browserStack,
 	#tabbrowser-tabbox {
 		box-shadow: none !important;
 		border-radius: 8px !important;
 		background: light-dark(rgba(255,255,255,0.5), rgba(20,20,20,0.5)) !important;
+	}
+
+	:root[inFullscreen="true"] #browserStack,
+	:root[inFullscreen="true"] #tabbrowser-tabbox {
+		border-radius: 0px !important;
 	}
 
 	#tabbrowser-tabpanels {
