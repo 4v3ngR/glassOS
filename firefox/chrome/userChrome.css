@@ -22,6 +22,11 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 		border-radius: 0px;
 	}
 
+	.browserContainer {
+		outline: none !important;
+		background: transparent !important;
+	}
+
 	#nav-bar {
 		background: transparent !important;
 	}
@@ -59,7 +64,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	:root[inFullscreen="true"] browser,
 	:root[inFullscreen="true"] #browser {
 		padding: 0px;
-		border-radius: 0px;
+		border-radius: 0px !important;
 	}
 
 	#statusBar,
@@ -116,6 +121,12 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 		background: transparent !important;
 		hbox {
 			border-radius: 8px
+		}
+	}
+
+	:root[inFullscreen="true"] #tabbrowser-tabpanels {
+		hbox {
+			border-radius: 0px;
 		}
 	}
 
