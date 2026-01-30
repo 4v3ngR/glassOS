@@ -99,8 +99,8 @@ case "$THEME" in
 		BRIGHTNESS=0.9
 		CONTRAST=1.1
 		SATURATION=1.0
-		BLURSTRENGTH=2
-		GLOW="#0080D0FF"
+		BLURSTRENGTH=3
+		GLOW="#1080D0FF"
 		EDGE="true"
 		;;
 	"light-glass")
@@ -110,7 +110,7 @@ case "$THEME" in
 		CONTRAST=1.0
 		SATURATION=0.9
 		BLURSTRENGTH=3
-		GLOW="#00f0f0f0"
+		GLOW="#ff000000"
 		TINT="#07e0e0e0"
 		;;
 	"dark")
