@@ -105,7 +105,8 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 		}
 	}
 
-	#browserStack,
+	.browserContainer,
+	.browserStack,
 	#tabbrowser-tabbox {
 		box-shadow: none !important;
 		border-radius: 16px !important;
