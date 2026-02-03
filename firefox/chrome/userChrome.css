@@ -15,7 +15,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	}
 
 	html {
-		border-radius: 8px;
+		border-radius: 16px !important;
 	}
 
 	:root[inFullscreen="true"] html {
@@ -52,12 +52,12 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	}
 
 	browser {
-		border-radius: 8px !important;
+		border-radius: 16px !important;
 	}
 
 	#browser {
 		background: transparent !important;
-		border-radius: 8px !important;
+		border-radius: 16px !important;
 		padding: 0px 8px 8px 8px;
 	}
 
@@ -108,7 +108,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	#browserStack,
 	#tabbrowser-tabbox {
 		box-shadow: none !important;
-		border-radius: 8px !important;
+		border-radius: 16px !important;
 		background: light-dark(rgba(255,255,255,0.5), rgba(20,20,20,0.5)) !important;
 	}
 
@@ -120,7 +120,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	#tabbrowser-tabpanels {
 		background: transparent !important;
 		hbox {
-			border-radius: 8px
+			border-radius: 8px !important;
 		}
 	}
 
