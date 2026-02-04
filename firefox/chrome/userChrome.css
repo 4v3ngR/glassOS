@@ -18,6 +18,10 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 		border-radius: 16px !important;
 	}
 
+	#tabbrowser-arrowscrollbox {
+		padding-top: 8px !important;
+	}
+
 	:root[inFullscreen="true"] html {
 		border-radius: 0px;
 	}
