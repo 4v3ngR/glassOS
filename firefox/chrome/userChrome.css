@@ -136,16 +136,19 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 	}
 
 	#tabs-newtab-button,
+	#sidebar-button,
 	#sidebar-tools-and-extensions-splitter,
 	button-group.overflow-button {
 		visibility: hidden;
 		display: none;
 	}
 
+	#main-button,
 	#unified-extensions-button {
 		opacity: 0.0;
 	}
 
+	#main-buton:hover,
 	#unified-extensions-button:hover {
 		opacity: inherit;
 	}
