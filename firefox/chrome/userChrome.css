@@ -12,6 +12,9 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 
 	#main-window {
 		margin: 0px;
+		body {
+			background: transparent !important;
+		}
 	}
 
 	html {
