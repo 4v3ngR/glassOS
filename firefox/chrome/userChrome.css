@@ -11,6 +11,7 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 /* Please write your custom CSS under this line*/
 
 	#main-window {
+		background: transparent !important;
 		margin: 0px;
 		body {
 			background: transparent !important;
